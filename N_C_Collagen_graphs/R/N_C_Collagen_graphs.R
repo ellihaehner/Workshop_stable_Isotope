@@ -6,6 +6,7 @@
 #install.packages("RColorBrewer")
 #install.packages("ggimage")
 #install.packages("png")
+#install.packages("rsvg")
 
 #Step 2: load packages
 library(ggplot2)
@@ -15,6 +16,7 @@ library(RColorBrewer)
 library(ggimage)
 library(png)
 library(dplyr)
+library(rsvg)
 
 #set working directory
 setwd("C:/N_C_Collagen_graphs")
@@ -30,13 +32,13 @@ if(!dir.exists("./tables")) {
   dir.create("./tables", recursive = TRUE, showWarnings = FALSE)
 }
 tab_output_dir <- file.path("./tables")
-tab_output_dir <- "tables"
+
 
 ##load your data, there are different ways to load them, chose one
 #load files via code
 df <- read.csv("./data/makarewicz_et_al_2022_maidanetske.csv", sep = ";", header = TRUE)
 #load files from environment, for that you have to click on "Import Dataset" in the Environment
-# df <- R_Tabelle
+# df <- makarewicz_et_al_2022_maidanetske
 
 ##check your data
 #check if you have missing values
@@ -163,7 +165,10 @@ ggsave(file.path(figure_output_dir, "Maidanetske_Collagen_Categories.svg"), plot
 ##create a plot with the silhouettes of the animals, instead of points
 #credits to J. Goebel for the Code section
 
-#first define silhouettes from the svg-files in the folder "assets"
+#define assets_dir
+assets_dir <- "./assets"
+
+# define silhouettes from the svg-files in the folder "assets"
 SPECIES_SVG_MAP <- c(
   Bos   = "cattle.svg",
   Capra = "goat.svg",
@@ -257,6 +262,7 @@ if (!is.null(plot_pictogram_result)) {
   ggsave(file.path(figure_output_dir,"pictogram_scatter.svg"), plot = plot_pictogram_result, width = 12, height = 8, dpi = 300)
   ggsave(file.path(figure_output_dir,"pictogram_scatter.png"), plot = plot_pictogram_result, width = 12, height = 8, dpi = 300)
 }
+
 
 
 
